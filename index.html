@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Babee!</title>
+    <style>
+        /* Base Styling */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: linear-gradient(135deg, #fed6e3 0%, #a8c1ef 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* SCREEN 1: Main Welcome Card */
+        .card {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.5);
+            max-width: 450px;
+            width: 90%;
+            z-index: 10;
+            animation: floatCard 4s ease-in-out infinite;
+        }
+        @keyframes floatCard {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Creative Surprise Button */
+        .suprise-btn {
+            background: linear-gradient(45deg, #ff477e, #ff7096);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-top: 20px;
+            box-shadow: 0 5px 15px rgba(255, 71, 126, 0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .suprise-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 7px 20px rgba(255, 71, 126, 0.6);
+        }
+
+        /* SCREEN 2: Hidden Gallery Screen */
+        .gallery-screen {
+            display: none;
+            width: 100%;
+            max-width: 1100px;
+            padding: 40px 20px;
+            text-align: center;
+            z-index: 10;
+            animation: fadeIn 1.2s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Beautiful 16 Photo Grid Frame Setup */
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        /* Polaroid Frame Design */
+        .photo-card {
+            background: white;
+            padding: 15px;
+            padding-bottom: 25px;
+            border-radius: 4px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        /* Rotations for random creative look */
+        .photo-card:nth-child(4n+1) { transform: rotate(-3deg); }
+        .photo-card:nth-child(4n+2) { transform: rotate(2deg); }
+        .photo-card:nth-child(4n+3) { transform: rotate(-1.5deg); }
+        .photo-card:nth-child(4n+4) { transform: rotate(3deg); }
+
+
+        .photo-card:hover {
+            transform: rotate(0deg) scale(1.1);
+            box-shadow: 0 15px 30px rgba(255, 71, 126, 0.3);
+            z-index: 20;
+            border: 1px solid #ff477e;
+        }
+
+        .photo-card:hover {
+            transform: rotate(0deg) scale(1.08);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            z-index: 20;
+        }
+        .photo-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border: 1px solid #eee;
+        }
+        .photo-caption {
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            font-size: 1rem;
+            margin-top: 15px;
+            color: #444;
+        }
+
+        /* Quotes Board */
+        .quote-box {
+            background: rgba(255, 255, 255, 0.85);
+            padding: 25px;
+            border-left: 6px solid #ff477e;
+            border-radius: 4px 20px 20px 4px;
+            margin: 25px auto;
+            font-style: italic;
+            font-size: 1.15rem;
+            color: #333;
+            text-align: left;
+            max-width: 800px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        /* Background Balloons */
+        .balloon-container {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0; left: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .balloon {
+            position: absolute;
+            bottom: -150px;
+            width: 60px; height: 75px;
+            border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+            animation: floatUp 8s linear infinite;
+        }
+        .balloon::before {
+            content: "▲"; position: absolute;
+            bottom: -8px; left: 24px;
+            font-size: 10px; color: inherit;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-120vh) rotate(20deg); opacity: 0; }
+        }
+        .confetti {
+            position: fixed;
+            width: 15px;
+            height: 15px;
+            z-index: 999;
+            user-select: none;
+            pointer-events: none;
+            animation: confettiFall 4s linear forwards;
+        }
+        @keyframes confettiFall {
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+        }
+        .confetti {
+            position:fixed;
+            width: 10px;
+            height: 10px;
+            z-index: 99999;
+            pointer-events: none;
+            animation: confettiFalls 4s linear infinite;
+        }
+        @keyframes confettiFalls {
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 1;}
+            100% { transform: translateY(110vh) rotate(720deg); opacity: 0;}
+        }
+        /* Photos par mouse le jaane wala smooth zoom aur glow effect */
+        .photo-card:hover {
+            transform: rotate(0deg) scale(1.1);
+            box-shadow: 0 15px 30px rgba(255, 71, 126, 0.4);
+            z-index: 20;
+            border: 1px solid #ff477e;
+        }
+    </style>
+</head>
+<body>
+    <audio id="bgMusic" loop src="bdaybgmusic.mp3"></audio>
+    <!-- Balloons Setup -->
+    <div class="balloon-container">
+        <div class="balloon" style="left: 7%; background: #ff477e; animation-delay: 0s;"></div>
+        <div class="balloon" style="left: 28%; background: #ff7096; animation-delay: 2s;"></div>
+        <div class="balloon" style="left: 52%; background: #ff85a1; animation-delay: 1.5s;"></div>
+        <div class="balloon" style="left: 73%; background: #fbb1bd; animation-delay: 3.5s;"></div>
+        <div class="balloon" style="left: 92%; background: #f72585; animation-delay: 0.8s;"></div>
+    </div>
+
+    <!-- 1️⃣ SCREEN 1: Welcome Screen -->
+    <div class="card" id="welcomeCard">
+        <div style="font-size: 4rem; margin-bottom: 15px;">🎂</div>
+        <h1 style="color: #ff477e; margin-bottom: 10px;">Hhaaappiiieeesssssttttt Bbiiirrtthhhddaaayyyy!</h1>
+        <h2 style="color: #4a90e2; margin-bottom: 15px;">My Ayuu ✨</h2>
+        <p>Something a lil beautiful thing is here. Hope you'll like it.. </p>
+        <button class="suprise-btn" onclick="openSurprise()">Click for Smile! 🎁</button>
+    </div>
+
+    <!-- 2️⃣ SCREEN 2: 16 Polaroid Gallery & Quotes -->
+    <div class="gallery-screen" id="surpriseScreen">
+        <h1 style="color: #ff2a6d; font-size: 2.8rem; margin-bottom: 10px;">Our Beautiful Memories 💖</h1>
+        <p style="font-size: 1.2rem; color: #444; margin-bottom: 20px;">Just some pics of us and love in those pics...</p>
+
+        <!-- 16 Polaroid Frames Grid -->
+        <div class="photo-grid">
+            <!-- Frame 1 -->                                         
+            <div class="photo-card" onmouseenter="playMusic('m1')" onmouseleave="stopMusic('m1')"><img src="ayu10.jpeg" alt="Pic 1"><div class="photo-caption">Best Moment ✨</div><audio id="m1" loop src="https://soundhelix.com"></audio></div>
+            <!-- Frame 2 -->
+            <div class="photo-card" onmouseenter="playMusic('m2')" onmouseleave="stopMusic('m2')"><img src="ayu9.jpeg" alt="Pic 2"><div class="photo-caption">Partner Forever 🌍</div><audio id="m2" loop src="https://soundhelix.com"></audio></div>
+            <!-- Frame 3 -->
+            <div class="photo-card" onmouseenter="playMusic('m3')" onmouseleave="stopMusic('m3')"><img src="ayu11.jpeg" alt="Pic 3"><div class="photo-caption">Memorable Day! 🎉</div><audio id="m3" loop src="https://soundhelix.com"></audio></div>
+            <!-- Frame 4 -->
+            <div class="photo-card" onmouseenter="playMusic('m4')" onmouseleave="stopMusic('m4')"><img src="ayu5.jpeg" alt="Pic 4"><div class="photo-caption">Silly Moments 🤪</div><audio id="m4" loop src="https://soundhelix.com"></audio></div>
+            <!-- Frame 5 -->
+            <div class="photo-card" onmouseenter="playMusic('m5')" onmouseleave="stopMusic('m5')"><img src="ayu3.jpeg" alt="Pic 5"><div class="photo-caption">That Smile! 😊</div><audio id="m5" loop src="https://soundhelix.com"></audio></div>
+            <!-- Frame 6 -->
+            <div class="photo-card" onmouseenter="playMusic('m6')" onmouseleave="stopMusic('m6')"><img src="ayu12.jpeg" alt="Pic 6"><div class="photo-caption">Always Together 👥</div><audio id="m6" loop src="https://soundhelix.com"></audio></div>
+            <!-- Frame 7 -->
+            <div class="photo-card" onmouseenter="playMusic('m7')" onmouseleave="stopMusic('m7')"><img src="ayu7.jpeg" alt="Pic 7"><div class="photo-caption">Best Vibes Only 💫</div><audio id="m7" loop src="https://soundhelix.com"></audio></div>
+            <!-- Frame 8 -->
+            <div class="photo-card" onmouseenter="playMusic('m8')" onmouseleave="stopMusic('m8')"><img src="ayu8.jpeg" alt="Pic 8"><div class="photo-caption">Cutest duo ever 🔥</div><audio id="m8" loop src="https://soundhelix.com"></audio></div>
+            <!-- Frame 9 -->
+            <div class="photo-card" onmouseenter="playMusic('m9')" onmouseleave="stopMusic('m9')"><img src="ayu14.jpeg" alt="Pic 9"><div class="photo-caption">Happy Times 🌸</div><audio id="m9" loop src="https://soundhelix.com"></audio></div>
+            <!-- Frame 10 -->
+            <div class="photo-card" onmouseenter="playMusic('m10')" onmouseleave="stopMusic('m10')"><img src="ayu15.jpeg" alt="Pic 10"><div class="photo-caption">Golden Days ☀️</div><audio id="m10" loop src="https://soundhelix.com"></audio></div>
+            <!-- Frame 11 -->
+            <div class="photo-card" onmouseenter="playMusic('m11')" onmouseleave="stopMusic('m11')"><img src="ayu13.jpeg" alt="Pic 11"><div class="photo-caption">Cute Pic 🧸</div><audio id="m11" loop src="https://soundhelix.com"></audio></div>
+            <!-- Frame 12 -->
+            <div class="photo-card" onmouseenter="playMusic('m12')" onmouseleave="stopMusic('m12')"><img src="ayu1.jpeg" alt="Pic 12"><div class="photo-caption">Crazy Mind 🧠</div><audio id="m12" loop src="https://soundhelix.com"></audio></div>
+            <!-- Frame 13 -->
+            <div class="photo-card" onmouseenter="playMusic('m13')" onmouseleave="stopMusic('m13')"><img src="ayu6.jpeg" alt="Pic 13"><div class="photo-caption">Throwback 📸</div><audio id="m13" loop src="https://soundhelix.com"></audio></div>
+            <!-- Frame 14 -->
+            <div class="photo-card" onmouseenter="playMusic('m14')" onmouseleave="stopMusic('m14')"><img src="ayu2.jpeg" alt="Pic 14"><div class="photo-caption">Pure Heart ❤️</div><audio id="m14" loop src="https://soundhelix.com"></audio></div>
+            <!-- Frame 15 -->
+            <div class="photo-card" onmouseenter="playMusic('m15')" onmouseleave="stopMusic('m15')"><img src="ayu4.jpeg" alt="Pic 15"><div class="photo-caption"> Unlimited Fun 🚀</div><audio id="m15" loop src="https://soundhelix.com"></audio></div>
+            <!-- Frame 16 -->
+            <div class="photo-card" onmouseenter="playMusic('m16')" onmouseleave="stopMusic('m16')"><img src="ayu16.jpeg" alt="Pic 16"><div class="photo-caption">Forever & Always ♾️</div><audio id="m16" loop src="https://soundhelix.com"></audio></div>
+        </div>
+
+        <!-- Quotes Section -->
+        <div class="quote-box">
+            "May your day be full of laughter, love, and endless happiness. No matter how old we get, our friendship will always stay fresh and young!"  ⭐
+        </div>
+        <div class="quote-box">
+            "idk kahan se start karu uhm like it was really the greatest day of my life when we met and I never thought ki that day will become this much special for me, the moment I saw you was really a blessing for me  and i know it's too early and i wish that our friendship will last forever (ignore the mistakes, I was so nervous while typing) ah and you are such a great person don't think that you're nothing for anyone, you're always a pleasure for me. no matter what the situation will be, I'll always by your side and will always love you! ❤️"  🎈
+        </div>
+
+        <p style="margin-top: 40px; font-weight: bold; color: #ff477e; font-size: 1.3rem;">Made with ❤️ by Your Yasin XD</p>
+    </div>
+
+    <!-- Script to switch views -->
+    <script>
+        function openSurprise() {
+            document.getElementById('welcomeCard').style.display = 'none';
+            document.getElementById('surpriseScreen').style.display = 'block';
+            window.scrollTo({top: 0, behavior: 'smooth'});
+            
+            // Confetti launch command
+           createConfettiParty ();
+        } 
+        var audio = document.getElementById('bgMusic');
+            if(audio) {
+                audio.play().catch(e => console.log("Playback blocked"));
+            }
+        
+    </script>
+</body>
+</html>
